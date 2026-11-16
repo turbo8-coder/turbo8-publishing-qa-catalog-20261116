@@ -249,6 +249,15 @@ def current_review_pr(event_pr, current):
     return current
 
 
+def write_review_artifact(output, meta, raw, head, **details):
+    """Both submission routes use the receipt verified by the editor before play."""
+    receipt = dict(details, id=meta['id'], author_id=meta['author_id'], version=meta['version'],
+                   head_sha=head, bytes=len(raw), sha256=hashlib.sha256(raw).hexdigest())
+    output.mkdir(parents=True, exist_ok=True)
+    (output / (meta['id'] + '.zip')).write_bytes(raw)
+    (output / 'review.json').write_bytes(json_bytes(receipt))
+
+
 def check_pr(event_path, output):
     event = json.loads(Path(event_path).read_text())
     pr = event['pull_request']
@@ -277,9 +286,7 @@ def check_pr(event_path, output):
         require(not Path('carts', filename[:-5]).exists(), 'Official identity already in use')
         meta, raw, _, _ = tracked_sources.review(recipe, filename, pr['user']['id'], sys.modules[__name__])
         require(api(f'/repos/{REPO}/pulls/{pr["number"]}')['head']['sha'] == pr['head']['sha'], 'PR changed')
-        output.mkdir(parents=True, exist_ok=True)
-        (output / (meta['id'] + '.zip')).write_bytes(raw)
-        (output / 'review.json').write_bytes(json_bytes(dict(recipe, head_sha=pr['head']['sha'])))
+        write_review_artifact(output, meta, raw, pr['head']['sha'], source=recipe)
         return
     ids = set()
     for item in changed:
@@ -297,9 +304,8 @@ def check_pr(event_path, output):
     require(api(f'/repos/{REPO}/pulls/{pr["number"]}')['head']['sha'] == pr['head']['sha'], 'PR changed during validation')
     meta, raw, _, _ = validate(files, cart_id, int(pr['user']['id']), previous)
     warnings = compatibility_warnings(files)
-    output.mkdir(parents=True, exist_ok=True)
-    (output / f'{cart_id}.zip').write_bytes(raw)
-    (output / 'review.json').write_bytes(json_bytes({'id': cart_id, 'version': meta['version'], 'author_id': meta['author_id'], 'head_sha': pr['head']['sha'], 'submission_revision': revision, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest(), 'compatibility_warnings': warnings}))
+    write_review_artifact(output, meta, raw, pr['head']['sha'],
+                          submission_revision=revision, compatibility_warnings=warnings)
     for warning in warnings:
         print('Compatibility warning: ' + warning)
     print('Validated one cartridge; candidate ZIP is available as a workflow artifact.')
