@@ -1,0 +1,290 @@
+{
+  "cover": {
+    "bytes": 131072,
+    "height": 144,
+    "width": 256
+  },
+  "default_actions": [
+    "A",
+    "B"
+  ],
+  "display": {
+    "default": "turbo8",
+    "maxAspect": 3.0,
+    "maxDimension": 512.0,
+    "maxPixels": 196608.0,
+    "minDimension": 64.0,
+    "presets": [
+      {
+        "height": 144.0,
+        "id": "turbo8",
+        "label": "TURBO8",
+        "width": 256.0
+      },
+      {
+        "height": 128.0,
+        "id": "pico8",
+        "label": "PICO-8",
+        "width": 128.0
+      },
+      {
+        "height": 240.0,
+        "id": "fc",
+        "label": "FC / NES",
+        "width": 256.0
+      },
+      {
+        "height": 160.0,
+        "id": "gba",
+        "label": "GBA",
+        "width": 240.0
+      }
+    ]
+  },
+  "effects": {
+    "bounds": {
+      "aberration": [
+        0,
+        3
+      ],
+      "bloom_radius": [
+        0.1,
+        5
+      ],
+      "bloom_strength": [
+        0,
+        3
+      ],
+      "bloom_threshold": [
+        0,
+        2
+      ],
+      "color_bleed": [
+        0,
+        1
+      ],
+      "contrast": [
+        0,
+        2
+      ],
+      "crt_focus": [
+        0,
+        1
+      ],
+      "crt_mask": [
+        0,
+        1
+      ],
+      "dot_pitch": [
+        1,
+        4
+      ],
+      "dot_radius": [
+        0.1,
+        0.7
+      ],
+      "dot_strength": [
+        0,
+        1
+      ],
+      "exposure": [
+        0,
+        3
+      ],
+      "gameboy_brightness": [
+        0,
+        1
+      ],
+      "gameboy_gap": [
+        0,
+        2
+      ],
+      "gameboy_glare": [
+        0,
+        1
+      ],
+      "gameboy_lcd_square": [
+        0,
+        1
+      ],
+      "gameboy_palette": [
+        0.0,
+        5.0
+      ],
+      "gameboy_shadow": [
+        0.0,
+        1.0
+      ],
+      "glass_scatter": [
+        0,
+        1
+      ],
+      "grain": [
+        0,
+        0.1
+      ],
+      "highlight_softness": [
+        0,
+        1
+      ],
+      "line_beam": [
+        0,
+        1
+      ],
+      "phosphor_mode": [
+        0.0,
+        2.0
+      ],
+      "saturation": [
+        0,
+        2
+      ],
+      "scan_pitch": [
+        1,
+        4
+      ],
+      "scan_strength": [
+        0,
+        1
+      ],
+      "scan_width": [
+        0.1,
+        1
+      ],
+      "vignette_strength": [
+        0,
+        1
+      ],
+      "warmth": [
+        0,
+        1
+      ]
+    },
+    "defaults": {
+      "aberration": 0.2,
+      "bloom_on": true,
+      "bloom_radius": 1.2,
+      "bloom_strength": 1.25,
+      "bloom_threshold": 0.5,
+      "color_bleed": 0.0,
+      "color_on": true,
+      "contrast": 1.0,
+      "crt_focus": 0.0,
+      "crt_mask": 0.0,
+      "crt_on": false,
+      "dot_pitch": 1.0,
+      "dot_radius": 0.45,
+      "dot_strength": 1.0,
+      "dots_on": true,
+      "effects_on": true,
+      "exposure": 1.25,
+      "gameboy_brightness": 0.408,
+      "gameboy_four_shades": true,
+      "gameboy_gap": 1.0,
+      "gameboy_glare": 0.0,
+      "gameboy_lcd_square": 0.038,
+      "gameboy_matrix": true,
+      "gameboy_on": false,
+      "gameboy_palette": 0,
+      "gameboy_shadow": 0.439,
+      "glass_scatter": 0.0,
+      "grain": 0.005,
+      "grain_on": true,
+      "highlight_softness": 0.0,
+      "line_beam": 0.0,
+      "phosphor_mode": 0,
+      "rgb_shift_on": true,
+      "saturation": 1.03,
+      "scan_pitch": 1.0,
+      "scan_strength": 0.18,
+      "scan_width": 0.3,
+      "scanlines_on": false,
+      "vignette_on": true,
+      "vignette_strength": 0.3,
+      "warmth": 0.0
+    },
+    "integers": [
+      "phosphor_mode",
+      "gameboy_palette",
+      "dot_pitch",
+      "scan_pitch"
+    ]
+  },
+  "images": {
+    "maxBytesPerImage": 16777216.0,
+    "maxImages": 64.0,
+    "maxPixelsPerImage": 8388608.0,
+    "maxSide": 4096.0,
+    "maxTotalBytes": 33554432.0,
+    "maxTotalPixels": 16777216.0
+  },
+  "limits": {
+    "expandedBytes": 67108864,
+    "fileBytes": 16777216,
+    "files": 128,
+    "maps": 64,
+    "music": 256,
+    "musicSteps": 256,
+    "palette": 256,
+    "pathLength": 160,
+    "scriptName": 128,
+    "scripts": 1024,
+    "sfx": 256,
+    "spritePixels": 64,
+    "sprites": 16384,
+    "virtualButtons": 10,
+    "zipBytes": 33554432
+  },
+  "map": {
+    "cells": 1048576,
+    "layers": 8,
+    "legacySide": 256,
+    "pixels": 262144,
+    "side": 4096
+  },
+  "resource_json": [
+    "maps",
+    "sfx",
+    "music",
+    "palette",
+    "spriteMeta",
+    "flags",
+    "sprites",
+    "pico8",
+    "postEffects",
+    "virtualControls",
+    "virtualButtons",
+    "gbaPort",
+    "portPlan",
+    "generatedCode"
+  ],
+  "schema": 1,
+  "source_sha256": {
+    "Editor/cartridge_cover.gd": "9616189ddb930fc9f9d160418282ffc949a097c536510e01455a8abc3953d72b",
+    "Editor/display_config.gd": "5647c72081539dcf28a19412b77616ae87232e35206de9832884b917e22cf1bb",
+    "Editor/document.gd": "1db68a219256d3c3a3bcc14d916c7e1b93e02a70f6a17e8874b24b18cb37ce6e",
+    "Editor/effects_panel.gd": "39eb88fbe7ebf002af10b2d46f98fe027093cfdec3feec4cced84d41770fce8e",
+    "Editor/image_resources.gd": "f79e6c6b6dc64a5829f7e79a9b25be6bc51a11d6e37169e40f0165694840572b",
+    "Editor/input_config.gd": "02d130dba33e30bf415d4c1a7f0781ee01654a71c5c80d54142d1dedad12ff15",
+    "Editor/online_submissions.gd": "bcdbcbc7f3c873a32a209b621a89bedfa4e5f74b52d7d6c4e67776659a093860",
+    "Editor/run_view.gd": "ea1c6c37d13722c39896f4ef771873293adac0f4c5ec1a242028a22c68a8cfd5",
+    "Runtime/display-config.json": "ef4daa396112307588d5ab684c58a494b543a4756a0261edd1cd4954617204d7",
+    "Runtime/image-config.json": "6dfa7a69db5a5269cd28b9d69e68d38b7e30aee90238a4d4b3595bdd206a362d"
+  },
+  "virtual_actions": [
+    "A",
+    "B",
+    "SELECT",
+    "START",
+    "X",
+    "Y",
+    "LB",
+    "RB",
+    "LT",
+    "RT"
+  ],
+  "writer_versions": [
+    "1.3",
+    "1.4"
+  ]
+}
