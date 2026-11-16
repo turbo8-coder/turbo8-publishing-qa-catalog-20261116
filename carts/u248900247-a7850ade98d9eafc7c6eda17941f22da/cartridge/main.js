@@ -1,0 +1,1 @@
+function _draw() { cls(1); print("Snapshot 1.0.0", 20, 40, 0); }
