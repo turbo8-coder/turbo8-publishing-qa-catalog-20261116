@@ -463,19 +463,25 @@ def add_publication_times(entries):
 def verify_pages(expected):
     wanted = json.loads(expected.read_text())
     digest = hashlib.sha256(json_bytes(wanted)).hexdigest()
-    for attempt in range(12):
-        url = f'https://turbo8-coder.github.io/turbo8-publishing-qa-catalog-20261116/catalog-v2.json?revision={wanted["source_commit"]}&manifest={digest}&attempt={attempt}'
+    base = 'https://turbo8-coder.github.io/turbo8-publishing-qa-catalog-20261116/'
+    deadline = time.monotonic() + 240
+    attempt = 0
+    while True:
+        nonce = str(time.time_ns())
+        url = f'{base}catalog-v2.json?revision={wanted["source_commit"]}&manifest={digest}&verify={nonce}'
         try:
-            with urllib.request.urlopen(url, timeout=30) as response:
-                actual = json.loads(response.read(1024 * 1024))
-            if actual == wanted:
-                cover_assets.verify(wanted['cartridges'], 'https://turbo8-coder.github.io/turbo8-publishing-qa-catalog-20261116/')
-                print('Public catalog matches the deployed artifact.')
-                return
-        except (OSError, ValueError):
-            pass
+            with urllib.request.urlopen(url, timeout=20) as response:
+                actual = json.loads(response.read(moderation.MAX_MANIFEST + 1))
+            require(actual == wanted, 'Published manifest digest is ' + hashlib.sha256(json_bytes(actual)).hexdigest())
+            cover_assets.verify(wanted['cartridges'], base, retry_query='?verify=' + nonce if attempt else '')
+            print('Public catalog matches the deployed artifact.')
+            return
+        except (OSError, ValueError) as error:
+            print(f'Public verification attempt {attempt + 1}: {error}', flush=True)
+            if time.monotonic() + 10 >= deadline:
+                raise ValueError(f'Public Pages verification failed for manifest {digest}: {error}') from error
+        attempt += 1
         time.sleep(10)
-    raise ValueError('Public Pages catalog did not reach the expected revision')
 
 
 def main():

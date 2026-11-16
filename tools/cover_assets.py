@@ -166,13 +166,16 @@ def publish_catalog(raw, gh):
             'Catalog mirror failed size/SHA-256 verification')
 
 
-def verify(entries, base):
+def verify(entries, base, retry_query=''):
     """Check actual public delivery, not only the catalog JSON."""
     def check(entry):
         metadata = entry['cover']
         require(metadata['path'] == 'covers/' + metadata['sha256'] + '.png', 'Invalid cover path')
-        with urllib.request.urlopen(base + metadata['path'], timeout=20) as response:
-            raw = response.read(MAX_BYTES + 1)
+        try:
+            with urllib.request.urlopen(base + metadata['path'] + retry_query, timeout=20) as response:
+                raw = response.read(MAX_BYTES + 1)
+        except OSError as error:
+            raise ValueError(f"Public cover unavailable for {entry['id']}: {error}") from error
         require(len(raw) == metadata['bytes'] and hashlib.sha256(raw).hexdigest() == metadata['sha256']
                 and png_size(raw) == SIZE, 'Public cover failed verification: ' + entry['id'])
     with ThreadPoolExecutor(max_workers=4) as workers:
